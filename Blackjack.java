@@ -5,8 +5,8 @@ public class Blackjack{
         ArrayList <Card> deck = new ArrayList<Card>(52);
         Card AceTest = new Card("Spades", "A", "");
         String[] CardNumbers = {"A","2","3","4","5","6","7","8","9","10", "J", "Q","K"};
-        for(int i = 1; i <= 12; i++){
-            Card card = new Card("hearts", CardNumbers[i], "");
+        for(int i = 1; i <= 13; i++){
+            Card card = new Card("hearts", CardNumbers[i-1], "");
             deck.add(i-1, card);
         }
         for(int i = 0; i < 13; i++){

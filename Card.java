@@ -6,18 +6,15 @@ public class Card{
     
 
     public Card(){
-        suit = "heart";
-        cardNo = "2";
-        value = 2;
+        this("heart","2","");
 
     }
     public Card(String suit, String cardNo, String symbol){
         this.suit = suit;
         this.cardNo = cardNo;
-        if(cardNo.equals("A")){
+        if(cardNo == "A"){
             this.value = 1;
-        }
-        if(cardNo == "J"|| cardNo == "Q"|| cardNo == "K"){
+        }else if(cardNo == "J"|| cardNo == "Q"|| cardNo == "K"){
             this.value = 10;
         } else {
             this.value = Integer.parseInt(cardNo); 
@@ -52,6 +49,19 @@ public class Card{
         this.value = value;
     }
     public String toString(){
-        return cardNo + " of" + suit;
+        switch (cardNo) {
+            case "A":
+                return "Ace of " + suit;
+            case "J":
+                return "Jack of " + suit;
+            case "Q":
+                return "Queen of " + suit;
+            case "K":
+                return "King of " + suit;
+        
+            default:
+                return cardNo + " of " + suit;
+        }
+        
     }
 }
