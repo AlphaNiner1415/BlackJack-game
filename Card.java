@@ -19,6 +19,22 @@ public class Card{
         } else {
             this.value = Integer.parseInt(cardNo); 
         }
+        switch (suit) {
+            case "hearts":
+                symbol = symbolsArray[0];
+                break;
+            case "spades":
+                symbol = symbolsArray[1];
+                break;
+            case "diamonds":
+                symbol = symbolsArray[2];
+                break;
+            case "clubs":
+                symbol = symbolsArray[3];
+            default:
+                symbol = ' ';
+                break;
+        }
         
     }
     public String getCardNo() {
