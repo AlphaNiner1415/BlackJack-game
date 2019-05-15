@@ -2,14 +2,14 @@ public class Card{
     protected String suit;
     protected String cardNo;
     protected int value;
-    protected String symbol;
-    
+    protected char symbol;
+    private char[] symbolsArray = {'\u2665','\u2660','\u2666','\u2663'}; //Hearts, Spade, Diamonds, Clubs.
 
     public Card(){
-        this("heart","2","");
+        this("heart","2");
 
     }
-    public Card(String suit, String cardNo, String symbol){
+    public Card(String suit, String cardNo){
         this.suit = suit;
         this.cardNo = cardNo;
         if(cardNo == "A"){
@@ -27,7 +27,7 @@ public class Card{
     public String getSuit() {
         return suit;
     }
-    public String getSymbol() {
+    public char getSymbol() {
         return symbol;
     }
     public int getValue() {
@@ -41,7 +41,7 @@ public class Card{
         this.suit = suit;
     }
    
-    public void setSymbol(String symbol) {
+    public void setSymbol(char symbol) {
         this.symbol = symbol;
     }
   
