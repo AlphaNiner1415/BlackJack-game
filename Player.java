@@ -87,15 +87,28 @@ public class Player{
     }
     
      public void printHand(Player dealer){
+        StringBuilder sb = new StringBuilder();
         System.out.println("The dealer currently has a " + dealer.hand[0] + " and " + (dealer.getNonNullHandLength()-1) +" other cards.");
-        if(getNonNullHandLength() ==1){
-            System.out.println("_______________"); //15 Underscores
-            System.out.printf("| %s           |\n", hand[0].getCardNo());
-            System.out.printf("| %c           |\n", hand[0].getSymbol());
-            System.out.println("|             |");
-            System.out.println("|             |");
+        String lineOne = "_______________";
+        String lineTwo = String.format("| %s  ", hand[0].getCardNo());
+        String lineThree = String.format("| %c  ",hand[0].getSymbol());
+        String lineFour = "|    ";
+        String lineFive = "_______________";
+        for(int i = 0; i < getNonNullHandLength(); i++){
+            sb.append(String.format("| %s  ",hand[i].getCardNo()));
+        }
+        lineTwo = sb.toString(); //This here is the way to go change all the other loops to this
+        System.out.println(lineTwo);
 
-            System.out.println("_______________"); 
+
+
+        if(getNonNullHandLength() ==1){
+            System.out.println(lineOne);
+            System.out.println(lineTwo);
+            System.out.println(lineThree);
+            System.out.println(lineFour);
+            System.out.println(lineFive);
+
         }else if(getNonNullHandLength()== 2){
             System.out.println("__________________");//18 underScores
             System.out.printf("| %s  | %s         |\n", hand[0].getCardNo(), hand[1].getCardNo());
@@ -117,5 +130,13 @@ public class Player{
         
      
      }
+     
+    public static String stringMultiply(String s, int n) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            sb.append(s);
+        }
+        return sb.toString();
+    }
      
 }
