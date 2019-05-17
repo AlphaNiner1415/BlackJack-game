@@ -2,13 +2,31 @@ import java.util.*;
 public class Blackjack{
     public static void main(String[] args) {
         ArrayList <Card> deck = new ArrayList<Card>(52);
-        deck = fillDeck(deck);
+        //System.out.println(deck.size());
         Random rand = new Random();
         Scanner sc = new Scanner(System.in);
         Card[] emptyHand = new Card[5];
         Player player = new Player("Anon",emptyHand);
         Dealer dealer = new Dealer("dealer", emptyHand);
         play(player,dealer,deck);
+        deck = fillDeck(deck);
+        while(player.computeTotal() < 21){
+            System.out.println("What do you want to do?");
+            System.out.print("> ");
+            String userinput = sc.next();
+            if(userinput == "Hit"){
+                player.draw(deck);
+                if(player.checkGameOver() == true){
+                    System.out.println("Bust!!! Your total is over 21! Better luck next time!");
+                    break;
+                } else {
+                    continue;
+                }
+            } else if (userinput == "Stand"){
+                dealer.play = true;
+                dealer.decisionMaker(deck);
+            }
+        }
 
 
 
@@ -24,8 +42,9 @@ public class Blackjack{
         dealer.draw(deck);
         player.draw(deck);
         dealer.draw(deck);
+        //System.out.println(deck.size());
 
-        player.setTotal(player.computeTotal());
+        player.computeTotal();
         dealer.printHand();
         player.printHand();
         
@@ -45,6 +64,7 @@ public class Blackjack{
                 deck.add(spadeCard);
             } else if (i > 39 && i <= 52) {
                 Card clubsCard = new Card("clubs", CardNumbers[i - 1 - 39]);
+                deck.add(clubsCard);
             }
         }
         return deck;

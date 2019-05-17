@@ -4,6 +4,7 @@ public class Player{
     protected int total;
     protected int money;
     protected String name;
+    public boolean play = false;
     public Player(){
         this.hand = new Card[5];
         this.total = 0;
@@ -48,7 +49,7 @@ public class Player{
         this.total = total;
     }
     public int computeTotal(){
-        total = 0;
+        this.total = 0;
         for (int i = 0;i < getNonNullHandLength(); i++) {
             if(hand[i].getCardNo() == "A" && total + 11 <=21){
                 this.total += 11;
@@ -57,7 +58,7 @@ public class Player{
             }
             
         }
-        return total;
+        return this.total;
     }
     public void draw( ArrayList<Card> deck ){
         Random rand = new Random();
@@ -122,6 +123,13 @@ public class Player{
             sb.append(s);
         }
         return sb.toString();
+    }
+    public boolean checkGameOver(){
+        if(this.computeTotal() > 21){
+            return true;
+        } else {
+            return false;
+        }
     }
      
 }

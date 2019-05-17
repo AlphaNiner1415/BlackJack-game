@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Random;
 public class Dealer extends Player{
     public Dealer(){
         super();
@@ -31,5 +33,17 @@ public class Dealer extends Player{
         System.out.println(lineThree);
         System.out.println(lineFour);
         System.out.println(lineFive);
+    }
+    public void decisionMaker(ArrayList<Card> deck){
+        Random rand = new Random();
+        computeTotal();
+        if(getNonNullHandLength() == 2 && this.total <= 17){
+            draw(deck);
+        }
+        printHand();
+        computeTotal();
+        if(getNonNullHandLength() ==3 && this.total <=15 && rand.nextInt(10) <=6){
+            draw(deck);
+        }
     }
 }
