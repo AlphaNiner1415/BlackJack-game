@@ -7,7 +7,7 @@ public class Blackjack{
         Scanner sc = new Scanner(System.in);
         Card[] emptyHand = new Card[5];
         Player player = new Player("Anon",emptyHand);
-        Player dealer = new Player("dealer", emptyHand);
+        Dealer dealer = new Dealer("dealer", emptyHand);
         play(player,dealer,deck);
 
 
@@ -18,14 +18,17 @@ public class Blackjack{
         //printHand(playerHand);
     }
     //This is to run the game.
-    public static void play(Player player, Player dealer, ArrayList<Card> deck){
+    public static void play(Player player, Dealer dealer, ArrayList<Card> deck){
         deck = fillDeck(deck);
         player.draw(deck);
         dealer.draw(deck);
         player.draw(deck);
         dealer.draw(deck);
+
         player.setTotal(player.computeTotal());
-        player.printHand(dealer);
+        dealer.printHand();
+        player.printHand();
+        
     }
     public static ArrayList<Card> fillDeck(ArrayList <Card> deck){
         deck.clear();

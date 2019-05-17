@@ -86,49 +86,34 @@ public class Player{
         return count;
     }
     
-     public void printHand(Player dealer){
+     public void printHand(){
+        System.out.println("This is your hand: ");
         StringBuilder sb = new StringBuilder();
-        System.out.println("The dealer currently has a " + dealer.hand[0] + " and " + (dealer.getNonNullHandLength()-1) +" other cards.");
+        StringBuilder sb2 = new StringBuilder();
+        StringBuilder sb3 = new StringBuilder();
         String lineOne = "_______________";
         String lineTwo = String.format("| %s  ", hand[0].getCardNo());
         String lineThree = String.format("| %c  ",hand[0].getSymbol());
         String lineFour = "|    ";
         String lineFive = "_______________";
-        for(int i = 0; i < getNonNullHandLength(); i++){
+        for(int i = 1; i < getNonNullHandLength(); i++){
             sb.append(String.format("| %s  ",hand[i].getCardNo()));
+            sb2.append(String.format("| %c  ",hand[i].getSymbol()));
+            sb3.append("|    ");
         }
-        lineTwo = sb.toString(); //This here is the way to go change all the other loops to this
+        int n = (getNonNullHandLength() + 4) * 3;
+        lineOne = stringMultiply("_", n);
+        lineTwo += sb.toString() + stringMultiply(" ", 12 - 2 * getNonNullHandLength())+"|"; //This here is the way to go change all the other loops to this
+        lineThree += sb2.toString() + stringMultiply(" ", 12 -2*getNonNullHandLength())+"|";
+        lineFour += sb3.toString()+ stringMultiply(" ", 12 -2*getNonNullHandLength())+"|";
+        lineFive = stringMultiply("_", n);
+        System.out.println(lineOne);
         System.out.println(lineTwo);
-
-
-
-        if(getNonNullHandLength() ==1){
-            System.out.println(lineOne);
-            System.out.println(lineTwo);
-            System.out.println(lineThree);
-            System.out.println(lineFour);
-            System.out.println(lineFive);
-
-        }else if(getNonNullHandLength()== 2){
-            System.out.println("__________________");//18 underScores
-            System.out.printf("| %s  | %s         |\n", hand[0].getCardNo(), hand[1].getCardNo());
-            System.out.printf("| %c  | %c         |\n", hand[0].getSymbol(), hand[1].getSymbol());
-            System.out.println("|    |           |");
-            System.out.println("|    |           |");
-
-            System.out.println("------------------");
-        } else if (getNonNullHandLength() == 3) {
-            System.out.println("_____________________"); //21 Underscores
-            System.out.printf("| %s  | %s  | %s       |\n", hand[0].getCardNo(), hand[1].getCardNo(),hand[2].getCardNo());
-            System.out.printf("| %c  | %c  | %s       |\n", hand[0].getSymbol(), hand[1].getSymbol(),hand[2].getSymbol());
-            System.out.println("|    |    |         |");
-            System.out.println("|    |    |         |");
-
-            System.out.println("---------------------");
-        }
+        System.out.println(lineThree);
+        System.out.println(lineFour);
+        System.out.println(lineFive);
         System.out.println("Total: " + this.total);
-        
-     
+
      }
      
     public static String stringMultiply(String s, int n) {
