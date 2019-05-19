@@ -13,20 +13,25 @@ public class Blackjack{
         while(player.computeTotal() < 21){
             System.out.println("What do you want to do?");
             System.out.print("> ");
-            String userinput = sc.next();
-            if(userinput == "Hit"){
+            String userinput = sc.nextLine();
+            if(userinput.equals("Hit")){
+                System.out.println("Hitting!!");
                 player.draw(deck);
+                player.printHand();
+                //System.out.println(player.computeTotal());
                 if(player.checkGameOver() == true){
                     System.out.println("Bust!!! Your total is over 21! Better luck next time!");
                     break;
                 } else {
                     continue;
                 }
-            } else if (userinput == "Stand"){
+            } else if (userinput.equals("Stand")){
                 dealer.play = true;
                 dealer.decisionMaker(deck);
             }
+            System.out.println("Going to next iteration");
         }
+        System.out.println("exiting the loop");
 
 
 

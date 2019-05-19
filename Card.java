@@ -31,6 +31,7 @@ public class Card{
                 break;
             case "clubs":
                 symbol = symbolsArray[3];
+                break;
             default:
                 symbol = ' ';
                 break;

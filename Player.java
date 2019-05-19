@@ -13,7 +13,7 @@ public class Player{
     public Player(String name,Card[] hand){
         this.name = name;
         this.hand = new Card[5];
-        for(int i = 0; i < this.hand.length; i++){
+        for(int i = 0; i < getNonNullHandLength(); i++){
             this.hand[i] = hand[i];
         }
     }
@@ -76,6 +76,7 @@ public class Player{
                 break;
             }
         }
+        computeTotal();
     }
     public int getNonNullHandLength(){
         int count = 0;
