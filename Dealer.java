@@ -7,6 +7,9 @@ public class Dealer extends Player{
     public Dealer(String name, Card[] hand){
         super(name,hand);
     }
+    public void printShowHand(){
+        super.printHand();
+    }
     public void printHand(){
         System.out.println("This is the dealer's hand: ");
         StringBuilder sb = new StringBuilder();
@@ -35,15 +38,27 @@ public class Dealer extends Player{
         System.out.println(lineFive);
     }
     public void decisionMaker(ArrayList<Card> deck){
-        Random rand = new Random();
-        computeTotal();
-        if(getNonNullHandLength() == 2 && this.total <= 17){
-            draw(deck);
+        while(this.total < 21 && this.getNonNullHandLength() < 5){
+            Random rand = new Random();
+            computeTotal();
+            if (this.total >= 18){
+                printShowHand();
+                break;
+            }
+            if (getNonNullHandLength() == 2 && this.total <= 17) {
+                draw(deck);
+            } else if(getNonNullHandLength()==2 && this.total >= 18){
+                printShowHand();
+                break;
+            }
+            printHand();
+            
+            System.out.println(this.total);
+            if (getNonNullHandLength() == 3 && this.total <= 15 && rand.nextInt(10) <= 6) {
+                draw(deck);
+            }
         }
-        printHand();
-        computeTotal();
-        if(getNonNullHandLength() ==3 && this.total <=15 && rand.nextInt(10) <=6){
-            draw(deck);
-        }
+        System.out.println("Exiting decision Maker!");
+        
     }
 }

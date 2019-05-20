@@ -1,6 +1,9 @@
 import java.util.*;
+import java.awt.*;
+import javax.swing.*;
 public class Blackjack{
     public static void main(String[] args) {
+        
         ArrayList <Card> deck = new ArrayList<Card>(52);
         //System.out.println(deck.size());
         Random rand = new Random();
@@ -8,9 +11,13 @@ public class Blackjack{
         Card[] emptyHand = new Card[5];
         Player player = new Player("Anon",emptyHand);
         Dealer dealer = new Dealer("dealer", emptyHand);
-        play(player,dealer,deck);
+
+        
+       
+        int bet = play(player,dealer,deck);
         deck = fillDeck(deck);
         while(player.computeTotal() < 21){
+            //userHandTotal.setText("Total: " + player.computeTotal());
             System.out.println("What do you want to do?");
             System.out.print("> ");
             String userinput = sc.nextLine();
@@ -21,6 +28,7 @@ public class Blackjack{
                 //System.out.println(player.computeTotal());
                 if(player.checkGameOver() == true){
                     System.out.println("Bust!!! Your total is over 21! Better luck next time!");
+                    player.setMoney(player.getMoney() - bet);
                     break;
                 } else {
                     continue;
@@ -28,6 +36,7 @@ public class Blackjack{
             } else if (userinput.equals("Stand")){
                 dealer.play = true;
                 dealer.decisionMaker(deck);
+                break;
             }
             System.out.println("Going to next iteration");
         }
@@ -41,7 +50,10 @@ public class Blackjack{
         //printHand(playerHand);
     }
     //This is to run the game.
-    public static void play(Player player, Dealer dealer, ArrayList<Card> deck){
+    public static int play(Player player, Dealer dealer, ArrayList<Card> deck){
+        Scanner sc = new Scanner(System.in);
+        System.out.print("How much do you want to bet? ");
+        int bet = sc.nextInt();
         deck = fillDeck(deck);
         player.draw(deck);
         dealer.draw(deck);
@@ -52,7 +64,7 @@ public class Blackjack{
         player.computeTotal();
         dealer.printHand();
         player.printHand();
-        
+        return bet;
     }
     public static ArrayList<Card> fillDeck(ArrayList <Card> deck){
         deck.clear();

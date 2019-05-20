@@ -16,6 +16,7 @@ public class Player{
         for(int i = 0; i < getNonNullHandLength(); i++){
             this.hand[i] = hand[i];
         }
+        this.money = 1000;
     }
     public Card[] getHand() {
         return hand;
