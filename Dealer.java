@@ -1,4 +1,7 @@
+import java.util.ArrayList;
+import java.util.Random;
 public class Dealer extends Player{
+    boolean play =false;
     public Dealer(){
         super();
     }
@@ -31,6 +34,9 @@ public class Dealer extends Player{
         System.out.println(lineThree);
         System.out.println(lineFour);
         System.out.println(lineFive);
+    }
+    public void printShowHand(){
+        super.printHand();
     }
     public void decisionMaker(ArrayList<Card> deck){
         while(this.total < 21 && this.getNonNullHandLength() < 5){
