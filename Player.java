@@ -85,6 +85,13 @@ public class Player{
         }
         return count;
     }
+    public boolean checkGameOver(){
+        if(this.computeTotal() >21){
+            return true;
+        } else {
+            return false;
+        }
+    }
     
      public void printHand(){
         System.out.println("This is your hand: ");
