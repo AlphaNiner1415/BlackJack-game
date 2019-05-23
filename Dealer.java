@@ -32,4 +32,31 @@ public class Dealer extends Player{
         System.out.println(lineFour);
         System.out.println(lineFive);
     }
+    public void decisionMaker(ArrayList<Card> deck){
+        while(this.total < 21 && this.getNonNullHandLength() < 5){
+            Random rand = new Random();
+            computeTotal();
+            if (this.total >= 18){
+                printShowHand();
+                break;
+            }
+            if (getNonNullHandLength() == 2 && this.total <= 17) {
+                draw(deck);
+            } else if(getNonNullHandLength()==2 && this.total >= 18){
+                printShowHand();
+                break;
+            }
+            printHand();
+            
+            System.out.println(this.total);
+            if (getNonNullHandLength() == 3 && this.total <= 15 && rand.nextInt(10) <= 6) {
+                draw(deck);
+            }else if(getNonNullHandLength() ==3 && this.total<=15){
+                printShowHand();
+                break;
+            }
+        }
+        System.out.println("Exiting decision Maker!");
+        
+    }
 }
