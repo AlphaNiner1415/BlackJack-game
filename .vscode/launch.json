@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - DealerDecisionMakerTest",
+            "request": "launch",
+            "mainClass": "DealerDecisionMakerTest",
+            "projectName": "BlackJack-game_51ebb169"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - Test",
             "request": "launch",
             "mainClass": "Test",

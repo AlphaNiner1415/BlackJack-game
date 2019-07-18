@@ -10,68 +10,58 @@ public class Blackjack{
         Dealer dealer = new Dealer("dealer", emptyHand);
         GUIRunner g1 = new GUIRunner();
         g1.setVisible(true);
-        start(player,dealer,deck);
+        start(player,dealer,deck,g1);
         play(player, g1, deck, dealer);
-        while(player.computeTotal() < 21){
-            //userHandTotal.setText("Total: " + player.computeTotal());
-            if(g1.action.equals("Hit")){
-                System.out.println("Hitting!!");
-                player.draw(deck);
-                player.printHand();
-                //System.out.println(player.computeTotal());
-                if(player.checkGameOver() == true){
-                    System.out.println("Bust!!! Your total is over 21! Better luck next time!");
-                    player.setMoney(player.getMoney() - g1.getbetAmount());
-                    break;
-                } else {
-                    continue;
-                }
-            } else if (g1.action.equals("Stand")){
-                dealer.play = true;
-                dealer.decisionMaker(deck);
-                break;
-            }
-            System.out.println("Going to next iteration");
-        }
-        System.out.println("exiting the loop");
-
-
-
-        
         //player.printHand();
-        
         //printHand(playerHand);
     }
     //This is to run the game.
-    public static void start(Player player, Dealer dealer, ArrayList<Card> deck){
-       
+    public static void start(Player player, Dealer dealer, ArrayList<Card> deck,GUIRunner g1){
+        dealer.clearHand();
+        player.clearHand();
         deck = fillDeck(deck);
         player.draw(deck);
+
         dealer.draw(deck);
         player.draw(deck);
         dealer.draw(deck);
 
-        player.setTotal(player.computeTotal());
-        dealer.printHand();
-        player.printHand();
+        player.computeTotal();
+        if(player.computeTotal() == 21){
+            System.out.println("You win!!!");
+        }
+        g1.printToScreen(dealer.printHand());
+        g1.printToScreen(player.printHand());
         
     }
     public static void play(Player player, GUIRunner g1, ArrayList<Card> deck, Dealer dealer){
         
             //userHandTotal.setText("Total: " + player.computeTotal());
-        if(g1.action.equals("Hit")){
-            System.out.println("Hitting!!");
-            player.draw(deck);
-            player.printHand();
-            //System.out.println(player.computeTotal());
-            if(player.checkGameOver() == true){
-                System.out.println("Bust!!! Your total is over 21! Better luck next time!");
-                player.setMoney(player.getMoney() - g1.getbetAmount());
+        System.out.println("Playing");
+        System.out.println(g1.action);
+        while(player.checkGameOver() == false){
+            if (g1.action.equals("Hit")) {
+                System.out.println("Hitting!!");
+                player.draw(deck);
+                g1.printToScreen(player.printHand());
+                // System.out.println(player.computeTotal());
+                if (player.checkGameOver() == true) {
+                    System.out.println("Bust!!! Your total is over 21! Better luck next time!");
+                    player.setMoney(player.getMoney() - g1.getbetAmount());
+                } else if(player.computeTotal() == 21){
+                    System.out.println("You win!!!!");
+                }
+                g1.action = "";
+            } else if (g1.action.equals("Stand")) {
+                System.out.println("Standing");
+                dealer.play = true;
+                dealer.decisionMaker(deck);
+                g1.printToScreen(dealer.printShowHand());
+                g1.action = "";
             }
-        } else if (g1.action.equals("Stand")){
-            dealer.play = true;
-            dealer.decisionMaker(deck);
+            
         }
+        
         
     }
         

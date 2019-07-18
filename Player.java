@@ -34,6 +34,7 @@ public class Player{
 
     public void setHand(Card[] hand) {
         this.hand = hand;
+        this.computeTotal();
     }
 
     public void setMoney(int money) {
@@ -49,13 +50,21 @@ public class Player{
     }
     public int computeTotal(){
         total = 0;
+        boolean flag = false;
         for (int i = 0;i < getNonNullHandLength(); i++) {
-            if(hand[i].getCardNo() == "A" && total + 11 <=21){
-                this.total += 11;
-            }else {
+            if(hand[i].getCardNo() == "A"){
+                flag = true;
+                continue;
+            } else {
                 this.total += this.hand[i].getValue();
             }
-            
+        }
+        if(flag){
+            if(this.total + 11 > 21){
+                this.total += 1;
+            } else{
+                this.total +=11;
+            }
         }
         return total;
     }
@@ -72,6 +81,7 @@ public class Player{
                 hand[i] = drawnCard;
                 System.out.println(hand[i]);
                 System.out.println(this.getName() + " drew a Card!");
+                this.computeTotal();
                 break;
             }
         }
@@ -93,8 +103,8 @@ public class Player{
         }
     }
     
-     public void printHand(){
-        System.out.println("This is your hand: ");
+     public String printHand(){
+        
         StringBuilder sb = new StringBuilder();
         StringBuilder sb2 = new StringBuilder();
         StringBuilder sb3 = new StringBuilder();
@@ -114,13 +124,9 @@ public class Player{
         lineThree += sb2.toString() + stringMultiply(" ", 12 -2*getNonNullHandLength())+"|";
         lineFour += sb3.toString()+ stringMultiply(" ", 12 -2*getNonNullHandLength())+"|";
         lineFive = stringMultiply("_", n);
-        System.out.println(lineOne);
-        System.out.println(lineTwo);
-        System.out.println(lineThree);
-        System.out.println(lineFour);
-        System.out.println(lineFive);
-        System.out.println("Total: " + this.total);
-
+        String introString = "This is your hand:" ;
+        String totalString = introString + "\n"+lineOne + "\n" + lineTwo + "\n"+ lineThree + "\n"+ lineFour + "\n" + lineFive+ "\nTotal: " + this.total;
+        return totalString;
      }
      
     public static String stringMultiply(String s, int n) {
@@ -129,6 +135,12 @@ public class Player{
             sb.append(s);
         }
         return sb.toString();
+    }
+    
+    public void clearHand() {
+        for (int i = 0; i < 5; i++) {
+            hand[i] = null;
+        }
     }
      
 }

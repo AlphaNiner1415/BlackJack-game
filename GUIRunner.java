@@ -9,6 +9,9 @@ public class GUIRunner extends JFrame implements ActionListener{
     private static JButton stand;
     private static JLabel instruction;
     private static JLabel actionDone;
+    private static JTextArea cardDisplayer;
+    private static JTextArea cardDisplayer2;
+    private static JFrame myCard;
     public int betAmount;
     public String action ="";
     
@@ -16,6 +19,9 @@ public class GUIRunner extends JFrame implements ActionListener{
         ENTER, HIT, STAND
     }
     public GUIRunner(){
+        myCard = new JFrame();
+        JPanel myCardPanel = new JPanel();
+        myCardPanel.setLayout(new BoxLayout(myCardPanel, BoxLayout.Y_AXIS));
         number = new JTextField(4);
         numberOk = new JButton("Enter");
         hit = new JButton("Hit");
@@ -24,6 +30,9 @@ public class GUIRunner extends JFrame implements ActionListener{
         actionDone = new JLabel("");
         Dimension size1 = instruction.getPreferredSize();
         Dimension size2 = number.getPreferredSize();
+        cardDisplayer = new JTextArea();
+        cardDisplayer2 = new JTextArea();
+
         System.out.println(size1.width);
         System.out.println(size2.width);
         FlowLayout experimentalLayout = new FlowLayout();
@@ -42,6 +51,13 @@ public class GUIRunner extends JFrame implements ActionListener{
         add(instruction);
         add(number);
         add(numberOk);
+        myCardPanel.add(cardDisplayer,BorderLayout.NORTH);
+        myCardPanel.add(Box.createRigidArea(new Dimension(350,50)));
+        myCardPanel.add(cardDisplayer2,BorderLayout.SOUTH);
+        myCard.add(myCardPanel);
+        
+        myCard.setSize(350,600);
+        //myCard.setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
     }
     @Override
@@ -53,15 +69,19 @@ public class GUIRunner extends JFrame implements ActionListener{
             add(instruction);
             add(hit);
             add(stand);
+            add(actionDone);
+            myCard.setVisible(true);
             revalidate();
             repaint();
         }
         if(e.getSource() == hit){
             actionDone.setText("Hitting!");
-            add(actionDone);
+            System.out.println("Hit Button was Pressed");
+            //add(actionDone);
             revalidate();
             repaint();
             action = "Hit";
+            System.out.println("action="+action);
 
         }
         if(e.getSource()== stand){
@@ -74,6 +94,15 @@ public class GUIRunner extends JFrame implements ActionListener{
     }
     public int getbetAmount(){
         return betAmount;
+    }
+    public void printToScreen(String printString){
+        
+        if(printString.contains("This is your hand:")){
+            cardDisplayer2.setText("\n" + printString);
+        }else {
+            cardDisplayer.setText("\n" + printString);
+        }
+        
     }
         
 }
