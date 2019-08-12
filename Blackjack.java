@@ -11,11 +11,12 @@ public class Blackjack{
         Card[] emptyHand = new Card[5];
         Player player = new Player("Anon",emptyHand);
         Dealer dealer = new Dealer("dealer", emptyHand);
-
+        
         
        
         int bet = play(player,dealer,deck);
         deck = fillDeck(deck);
+        Collections.shuffle(deck);
         while(player.computeTotal() < 21){
             //userHandTotal.setText("Total: " + player.computeTotal());
             System.out.println("What do you want to do?");
