@@ -1,25 +1,32 @@
 {
-    "configurations": [
-        {
-            "type": "java",
-            "name": "CodeLens (Launch) - JFrameTest",
-            "request": "launch",
-            "mainClass": "JFrameTest",
-            "projectName": "BlackJack-game_51ebb169"
-        },
-        {
-            "type": "java",
-            "name": "CodeLens (Launch) - Test",
-            "request": "launch",
-            "mainClass": "Test",
-            "projectName": "BlackJack-game_51ebb169"
-        },
-        {
-            "type": "java",
-            "name": "CodeLens (Launch) - Blackjack",
-            "request": "launch",
-            "mainClass": "Blackjack",
-            "projectName": "BlackJack-game_51ebb169"
-        }
-    ]
+  "configurations": [
+    {
+      "name": "Python: Current File",
+      "type": "python",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "java",
+      "name": "CodeLens (Launch) - JFrameTest",
+      "request": "launch",
+      "mainClass": "JFrameTest",
+      "projectName": "BlackJack-game_51ebb169"
+    },
+    {
+      "type": "java",
+      "name": "CodeLens (Launch) - Test",
+      "request": "launch",
+      "mainClass": "Test",
+      "projectName": "BlackJack-game_51ebb169"
+    },
+    {
+      "type": "java",
+      "name": "CodeLens (Launch) - Blackjack",
+      "request": "launch",
+      "mainClass": "Blackjack",
+      "projectName": "BlackJack-game_51ebb169"
+    }
+  ]
 }
