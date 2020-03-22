@@ -12,7 +12,10 @@ public class Dealer extends Player {
     public Dealer(String name, Card[] hand) {
         super(name, hand);
     }
-
+    /**
+     * Method to print out the dealer's current hand. Shows only one of the dealer's card.
+     * @return a String that is a representation of the dealer's hand.
+     */
     public String printHand() {
         String introString = "This is the dealer's hand: ";
         StringBuilder sb = new StringBuilder();

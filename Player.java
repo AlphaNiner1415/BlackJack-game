@@ -73,7 +73,12 @@ public class Player {
         }
         return total;
     }
-
+    /**
+     * Method that draws a random card from the remaining cards in the deck.
+     * Also giving feedback to the screen that you drew a card, and recomputes the total of the player's hand.
+     * @param deck
+     *            The deck of cards
+     */
     public void draw(ArrayList<Card> deck) {
         Random rand = new Random();
         int seed = rand.nextInt();
