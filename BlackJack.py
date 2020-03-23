@@ -1,5 +1,6 @@
 import random
 import datetime
+execfile('player.py')
 # print('\u2660') #spades
 # print('\u2665') #hearts
 # print('\u2663') #clubs
@@ -44,6 +45,8 @@ class Card():
         return self.cardNo + self.symbol
 
     def __eq__(self, other):
+        if other == None:
+            return False
         return self.cardNo == other.cardNo
     
 class Deck:
@@ -92,6 +95,7 @@ class Deck:
             self.deckList.append(diamondCard)
 
 d1 = Deck()
-print(len(d1.deckList))
-print(d1.draw())
-print(len(d1.deckList))
+p1 = Player([],"P1")
+p1.draw(d1)
+p1.draw(d1)
+p1.printHand()
