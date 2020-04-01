@@ -108,15 +108,33 @@ def deal(player, dealer,deck):
     player.draw(deck)
     dealer.draw(deck)
 
-def game(player, dealer, deck,iterations):
-    for i in range(iterations):
-        if(len(deck.deckList) <= 10):
-            deck.clear()
-            deck.mergeNDecks(5)
-        deal(player,dealer,deck)
-        dealer.printHand()
+def game(player, dealer, deck):
+    deck.clear()
+    deck.mergeNDecks(5)
+    if(len(deck.deckList) <= 10):
+        deck.clear()
+        deck.mergeNDecks(5)
+    deal(player,dealer,deck)
+    total_before = player.computeTotal()
+    dealer_card = dealer.hand[0].value
+    stand_hit = 0 #0 for stand 1 for hit
+    win_lose = 0
+    hitRate = random.choice([0,1])
+    if player.computeTotal() == 21:
+        win_lose = 1
+        return total_before, dealer_card, stand_hit, win_lose
+    elif player.computeTotal() < 21 and hitRate == 1:
+        player.draw()
+        stand_hit = 1
+        if player.computeTotal() > 21:
+            return total_before, dealer_card, stand_hit, win_lose
+    
+    dealer.decisionMaker(player)
+    if dealer.checkGameOver():
+
+        
         
         
 p1 = Player([], "Anon")
 dealer = Dealer([],"Dealer")
-game(p1,dealer,d1, 2)
+game(p1,dealer,d1)
