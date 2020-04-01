@@ -1,6 +1,6 @@
 import random
 import datetime
-from player import Player
+from player import Player,Dealer
 from BackPropTest import *
 # print('\u2660') #spades
 # print('\u2665') #hearts
@@ -80,7 +80,8 @@ class Deck:
         self.deckList.remove(choice)
         self.size -=1
         return choice
-        
+    def clear(self):
+        self.deckList = []
     def createDeck(self):
         CardNumbers = ["A", "2", "3", "4", "5",
                        "6", "7", "8", "9", "10", "J", "Q", "K"]
@@ -96,6 +97,9 @@ class Deck:
         for i in range(1, 14):
             diamondCard = Card("diamonds", CardNumbers[i-1])
             self.deckList.append(diamondCard)
+    def mergeNDecks(self, n):
+        for decks in range(n):
+            self.createDeck()
 
 d1 = Deck()
 def deal(player, dealer,deck):
@@ -104,7 +108,15 @@ def deal(player, dealer,deck):
     player.draw(deck)
     dealer.draw(deck)
 
-p1 = Player([],"P1")
-p1.draw(d1)
-p1.draw(d1)
-p1.printHand()
+def game(player, dealer, deck,iterations):
+    for i in range(iterations):
+        if(len(deck.deckList) <= 10):
+            deck.clear()
+            deck.mergeNDecks(5)
+        deal(player,dealer,deck)
+        dealer.printHand()
+        
+        
+p1 = Player([], "Anon")
+dealer = Dealer([],"Dealer")
+game(p1,dealer,d1, 2)
