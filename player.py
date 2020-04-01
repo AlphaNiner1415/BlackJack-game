@@ -58,14 +58,14 @@ class Player(object):
         print(s1)
 
 class Dealer(Player):
-    def decision_maker(self,player):
+    def decision_maker(self,player,deck):
         while True:
-            if self.computeTotal() >= 21:
+            if player.computeTotal() > 21 or self.computeTotal() >= 21:
                 break
             if self.computeTotal() < 17:
-                self.draw()
+                self.draw(deck)
             elif self.computeTotal() < player.computeTotal() and self.computeTotal() < 21:
-                self.draw()
+                self.draw(deck)
             
     def printHand(self):
         for card in self.hand:
