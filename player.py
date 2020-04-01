@@ -37,6 +37,7 @@ class Player(object):
     def clearHand(self):
         for card in self.hand:
             card = None
+        self.computeTotal()
 
     def printHand(self):
         s1 = ""

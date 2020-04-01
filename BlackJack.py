@@ -1,6 +1,7 @@
 import random
 import datetime
-execfile('player.py')
+from player import Player
+from BackPropTest import *
 # print('\u2660') #spades
 # print('\u2665') #hearts
 # print('\u2663') #clubs
@@ -52,7 +53,7 @@ class Card():
 class Deck:
     def __init__(self):
         CardNumbers = ["A", "2", "3", "4", "5","6", "7", "8", "9", "10", "J", "Q", "K"]
-        self.deckList = []
+        self.deckList = list()
         for i in range(1,14):
             heartCard = Card("hearts", CardNumbers[i-1] )
             self.deckList.append(heartCard)
@@ -66,7 +67,9 @@ class Deck:
             diamondCard = Card("diamonds", CardNumbers[i-1] )
             self.deckList.append(diamondCard)
         self.size = 52
-        random.shuffle(self.deckList)
+        deckList2 = self.deckList.copy()
+        random.shuffle(deckList2)
+        self.deckList = deckList2
 
     def draw(self):
         random.shuffle(self.deckList)
@@ -95,6 +98,12 @@ class Deck:
             self.deckList.append(diamondCard)
 
 d1 = Deck()
+def deal(player, dealer,deck):
+    player.draw(deck)
+    dealer.draw(deck)
+    player.draw(deck)
+    dealer.draw(deck)
+
 p1 = Player([],"P1")
 p1.draw(d1)
 p1.draw(d1)
