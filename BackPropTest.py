@@ -87,7 +87,8 @@ def train_network(network, train, l_rate, n_epoch, n_outputs):
             sum_error += sum([(expected[i]-outputs[i])**2 for i in range(len(expected))])
             backward_propagate_error(network,expected)
             update_weights(network,row, l_rate)
-        print('>epoch=%d, lrate=%.3f,error=%.3f' %(epoch, l_rate, sum_error))
+        if epoch%3 == 2:
+            print('>epoch=%d, lrate=%.3f, error=%.3f' %(epoch, l_rate, sum_error))
 def predict(network,row):
     outputs = forward_propagate(network,row)
     return outputs.index(max(outputs))
@@ -109,6 +110,9 @@ def predict(network,row):
 ##            [{'output': 0.6213859615555266, 'weights': [0.2550690257394217, 0.49543508709194095]}, {'output': 0.6573693455986976, 'weights': [0.4494910647887381, 0.651592972722763]}]]
 # network = initialize_network(n_inputs, 2, n_outputs)
 # train_network(network,dataset, 0.5,30, n_outputs)
+# for row in dataset:
+# 	prediction = predict(network, row)
+# 	print('Expected=%d, Got=%d' % (row[-1], prediction))
 
 ##printNetwork(network)
 

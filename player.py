@@ -25,7 +25,7 @@ class Player(object):
         for i in range(len(self.hand)):
             if(self.hand[i].value == 0):
                 self.hand[i] = drawnCard
-                print(self.name + " drew " + str(drawnCard))
+                #print(self.name + " drew " + str(drawnCard))
                 break
         
 

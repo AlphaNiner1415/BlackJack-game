@@ -158,18 +158,28 @@ p1 = Player([], "Anon")
 dealer = Dealer([],"Dealer")
 results_table = list()
 correctMove = list()
-for i in range(40):
+for i in range(50):
     result = list()
     total_before = 0
     dealer_card = 0
     stand_hit = 0
     win_lose = 0
+    #random.seed(2)
     total_before, dealer_card, stand_hit, win_lose = game(p1, dealer,d1)
     correct_move = 0
     if(stand_hit == win_lose):
         correct_move = 1
-    result = [total_before, dealer_card,stand_hit,win_lose]
+    result = [total_before, dealer_card,stand_hit,win_lose, correct_move]
     correctMove.append(correct_move)
     results_table.append(result)
 for i in range(len(results_table)):
-    print(results_table[i], correctMove[i])
+    print(results_table[i],",")
+
+# n_inputs = len(results_table[0]) - 1
+# n_outputs = len(set([row[-1] for row in results_table]))
+# random.seed(1)
+# network = initialize_network(n_inputs, 3, n_outputs)
+# train_network(network, results_table, 0.66, 90, n_outputs)
+# for row in results_table:
+# 	prediction = predict(network, row)
+# 	print('Expected=%d, Got=%d' % (row[-1], prediction))
