@@ -43,6 +43,8 @@ class Card():
             self.symbol = symbols[3]
 
     def __str__(self):
+        if self.cardNo == "0":
+            return ""
         return self.cardNo + self.symbol
 
     def __eq__(self, other):
@@ -97,6 +99,7 @@ class Deck:
         for i in range(1, 14):
             diamondCard = Card("diamonds", CardNumbers[i-1])
             self.deckList.append(diamondCard)
+        self.size += 52
     def mergeNDecks(self, n):
         for decks in range(n):
             self.createDeck()
@@ -111,36 +114,62 @@ def deal(player, dealer,deck):
 def game(player, dealer, deck):
     deck.clear()
     deck.mergeNDecks(5)
-    player.clearHand()
-    dealer.clearHand()
+    random.shuffle(deck.deckList)
+    emptyCard = Card("spades",0)
+    player.clearHand(emptyCard)
+    player.printHand()
+    dealer.clearHand(emptyCard)
     if(len(deck.deckList) <= 10):
         deck.clear()
         deck.mergeNDecks(5)
-    deal(player,dealer,deck)
+    print("Setup starting! \n")
+    player.draw(deck)
+    dealer.draw(deck)
+    player.draw(deck)
+    dealer.draw(deck)
+    print("Setup finished \n")
     total_before = player.computeTotal()
+    ##print(total_before)
     dealer_card = dealer.hand[0].value
     stand_hit = 0 #0 for stand 1 for hit
     win_lose = 0
     hitRate = random.choice([0,1])
     if player.computeTotal() == 21:
         win_lose = 1
+        return total_before, dealer_card, stand_hit, win_lose
     elif player.computeTotal() < 21 and hitRate == 1:
         player.draw(deck)
         stand_hit = 1
-    if player.computeTotal() > 21:
-        win_lose = 0
+        if player.computeTotal() > 21:
+            win_lose = 0
+            return total_before, dealer_card, stand_hit, win_lose
 
     
     dealer.decision_maker(player,deck)
     if dealer.checkGameOver() and (player.checkGameOver() == False):
         win_lose = 1
+    elif dealer.checkGameOver() == False and player.checkGameOver() == False:
+        if dealer.computeTotal() > player.computeTotal():
+            win_lose = 0
+        else: 
+            win_lose = 1
     return total_before, dealer_card, stand_hit, win_lose
 p1 = Player([], "Anon")
 dealer = Dealer([],"Dealer")
 results_table = list()
-for i in range(10):
+correctMove = list()
+for i in range(40):
     result = list()
+    total_before = 0
+    dealer_card = 0
+    stand_hit = 0
+    win_lose = 0
     total_before, dealer_card, stand_hit, win_lose = game(p1, dealer,d1)
-    result = [total_before, dealer_card,stand_hit, win_lose]
+    correct_move = 0
+    if(stand_hit == win_lose):
+        correct_move = 1
+    result = [total_before, dealer_card,stand_hit,win_lose]
+    correctMove.append(correct_move)
     results_table.append(result)
-print(results_table)
+for i in range(len(results_table)):
+    print(results_table[i], correctMove[i])
