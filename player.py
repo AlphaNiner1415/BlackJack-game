@@ -22,13 +22,9 @@ class Player(object):
 
     def draw(self, deck):
         drawnCard = deck.draw()
-        for i in range(len(self.hand)):
-            if(self.hand[i].value == 0):
-                self.hand[i] = drawnCard
-                #print(self.name + " drew " + str(drawnCard))
-                break
-        
-
+        if len(self.hand) < 5:
+            self.hand.append(drawnCard)
+            print("*"+self.name + " drew " + str(drawnCard))
     def getNonNullHandLength(self):
         count = 0
         for i in range(len(self.hand)):
@@ -63,12 +59,15 @@ class Dealer(Player):
                 self.draw(deck)
             else:
                 break
+        self.printHand()
             
     def printHand(self):
+        returnStr = ""
         for card in self.hand:
             if card != None:
-                print(str(card))
+                returnStr += str(card)
                 break
+        print(returnStr)
 
         
             

@@ -111,30 +111,29 @@ def deal(player, dealer,deck):
     player.draw(deck)
     dealer.draw(deck)
 
-def game(player, dealer, deck):
-    deck.clear()
-    deck.mergeNDecks(5)
+def game(player, dealer, deck, hitRate):
+    deck.createDeck()
+    #print(deck.size)
     random.shuffle(deck.deckList)
     emptyCard = Card("spades",0)
-    player.clearHand(emptyCard)
+    player.hand = []
     player.printHand()
-    dealer.clearHand(emptyCard)
-    if(len(deck.deckList) <= 10):
-        deck.clear()
-        deck.mergeNDecks(5)
-    print("Setup starting! \n")
+    dealer.hand = []
+    player.computeTotal()
+    dealer.computeTotal()
     player.draw(deck)
     dealer.draw(deck)
     player.draw(deck)
     dealer.draw(deck)
-    print("Setup finished \n")
+    #print("Setup finished! \n")
     total_before = player.computeTotal()
     ##print(total_before)
     dealer_card = dealer.hand[0].value
     stand_hit = 0 #0 for stand 1 for hit
     win_lose = 0
-    hitRate = random.choice([0,1])
+    #hitRate = random.choice([0,1])
     if player.computeTotal() == 21:
+        print("Black Jack!!")
         win_lose = 1
         return total_before, dealer_card, stand_hit, win_lose
     elif player.computeTotal() < 21 and hitRate == 1:
@@ -144,8 +143,14 @@ def game(player, dealer, deck):
             win_lose = 0
             return total_before, dealer_card, stand_hit, win_lose
 
+    #print(deck.size)
+    try:
+        dealer.decision_maker(player, deck)
+    except IndexError:
+        print("Error detected on Iteration number: " ,i)
+        print(len(deck.deckList))
+        dealer.printHand()
     
-    dealer.decision_maker(player,deck)
     if dealer.checkGameOver() and (player.checkGameOver() == False):
         win_lose = 1
     elif dealer.checkGameOver() == False and player.checkGameOver() == False:
@@ -158,18 +163,23 @@ p1 = Player([], "Anon")
 dealer = Dealer([],"Dealer")
 results_table = list()
 correctMove = list()
-for i in range(50):
+for i in range(500):
+    print("Iteration Number: " ,i)
     result = list()
     total_before = 0
     dealer_card = 0
     stand_hit = 0
     win_lose = 0
-    #random.seed(2)
-    total_before, dealer_card, stand_hit, win_lose = game(p1, dealer,d1)
+    if i < 250:
+        hitRate = 1
+    else:
+        hitRate = 0
+    random.seed(i)
+    total_before, dealer_card, stand_hit, win_lose = game(p1, dealer,d1,hitRate)
     correct_move = 0
     if(stand_hit == win_lose):
         correct_move = 1
-    result = [total_before, dealer_card,stand_hit,win_lose, correct_move]
+    result = [total_before, dealer_card,stand_hit, correct_move,win_lose]
     correctMove.append(correct_move)
     results_table.append(result)
 for i in range(len(results_table)):
